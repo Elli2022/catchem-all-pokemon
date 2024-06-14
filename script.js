@@ -13,12 +13,8 @@ async function fetchData() {
         }
 
         const data = await response.json();
-        const pokemonSprite = data.sprites.front_default;
-        const imgElement = document.getElementById("pokemonSprite");
-        imgElement.style.display = "block";
-        imgElement.src = pokemonSprite;
+        updatePokemonCard(data);
 
-       
         clearError();
 
     } catch (error) {
@@ -27,12 +23,26 @@ async function fetchData() {
     }
 }
 
+function updatePokemonCard(data) {
+    const card = document.getElementById("pokemonCard");
+    const sprite = document.getElementById("pokemonSprite");
+    const nameDisplay = document.getElementById("pokemonNameDisplay");
+    const typeDisplay = document.getElementById("pokemonType");
+    const abilityDisplay = document.getElementById("pokemonAbility");
+
+    sprite.src = data.sprites.front_default;
+    nameDisplay.textContent = capitalizeFirstLetter(data.name);
+    typeDisplay.textContent = `Type: ${data.types.map(typeInfo => capitalizeFirstLetter(typeInfo.type.name)).join(', ')}`;
+    abilityDisplay.textContent = `Ability: ${capitalizeFirstLetter(data.abilities[0].ability.name)}`;
+
+    card.style.display = "block";
+}
+
 function showError(message) {
     clearError();
     const errorMsg = document.createElement("p");
     errorMsg.id = "error-msg";
     errorMsg.textContent = message;
-    errorMsg.style.color = "red";
     document.getElementById("errorContainer").appendChild(errorMsg);
 }
 
@@ -43,5 +53,8 @@ function clearError() {
     }
 }
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 document.getElementById("fetchButton").addEventListener("click", fetchData);

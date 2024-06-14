@@ -8,10 +8,19 @@
 </head>
 <body>
 
-    <input type="text" id="pokemonName" placeholder="Name of Pokemon">
-    <button id="fetchButton">Catch Pokemon</button>
+    <img src="images/International_Pokémon_logo.svg.png" alt="Pokémon Logo" class="logo">
+    <h1>Catch'Em All Pokémon</h1>
+    <p>Enter the name of the Pokémon you want to catch and see its details below!</p>
+
+    <input type="text" id="pokemonName" placeholder="Name of Pokémon">
+    <button id="fetchButton">Catch Pokémon</button>
     
-    <img id="pokemonSprite" alt="pokemonImage" style="display:none" >
+    <div id="pokemonCard" class="card" style="display: none;">
+        <img id="pokemonSprite" class="sprite" alt="Pokémon Image">
+        <h2 id="pokemonNameDisplay"></h2>
+        <p id="pokemonType"></p>
+        <p id="pokemonAbility"></p>
+    </div>
     <div id="errorContainer"></div> 
 
     <script src="script.js"></script>
